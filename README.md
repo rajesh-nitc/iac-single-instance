@@ -1,1 +1,1 @@
-# cf-templates
+## cloudformation-ec2
