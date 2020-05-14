@@ -1,1 +1,1 @@
-## cloudformation-ec2
+## iac-cf-single-instance
