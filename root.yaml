@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: root stack
+Resources:
+  vpc:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: vpc.yaml
+  sg:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: sg.yaml
+      Parameters:
+        VPCID: !GetAtt vpc.Outputs.vpcId
+  instance:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: instance.yaml
+      Parameters:
+        SUBNETID: !GetAtt vpc.Outputs.subnetId
+        SGID: !GetAtt sg.Outputs.sgId

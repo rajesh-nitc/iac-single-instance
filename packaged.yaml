@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: root stack
+Resources:
+  vpc:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.us-east-2.amazonaws.com/cf1554356/88ec60a4b14016b4024aae19633dcdc4.template
+  sg:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.us-east-2.amazonaws.com/cf1554356/37f22dd3ebc80e1a3104d3797bc29e41.template
+      Parameters:
+        VPCID:
+          Fn::GetAtt:
+          - vpc
+          - Outputs.vpcId
+  instance:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.us-east-2.amazonaws.com/cf1554356/e4e3fd800f9a35f91bc7da49800bb911.template
+      Parameters:
+        SUBNETID:
+          Fn::GetAtt:
+          - vpc
+          - Outputs.subnetId
+        SGID:
+          Fn::GetAtt:
+          - sg
+          - Outputs.sgId
