@@ -1,5 +1,12 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: root stack
+Parameters:
+  ENV:
+    AllowedValues:
+    - dev
+    - prod
+    Default: dev
+    Type: String
 Resources:
   vpc:
     Type: AWS::CloudFormation::Stack
@@ -17,7 +24,7 @@ Resources:
   instance:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://s3.us-east-2.amazonaws.com/cf1554356/e4e3fd800f9a35f91bc7da49800bb911.template
+      TemplateURL: https://s3.us-east-2.amazonaws.com/cf1554356/e8512e650f521fcbf784b91e47ed0e2e.template
       Parameters:
         SUBNETID:
           Fn::GetAtt:
@@ -27,3 +34,5 @@ Resources:
           Fn::GetAtt:
           - sg
           - Outputs.sgId
+        ENV:
+          Ref: ENV

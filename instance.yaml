@@ -16,6 +16,8 @@ Parameters:
     Type: String
   SGID:
     Type: String
+  ENV:
+    Type: String
 Mappings:
   AWSInstanceType2Arch:
     t2.micro:
@@ -24,6 +26,10 @@ Mappings:
     us-east-2:
       HVM64: ami-0f7919c33c90f5b58
       HVMG2: ami-e998ea83
+
+Conditions:
+  CreateLargeRootDisk: !Equals [ !Sub '${ENV}', 'prod' ]
+
 Resources:
   WebServer:
     Type: AWS::EC2::Instance
@@ -33,6 +39,10 @@ Resources:
         Ref: InstanceType
       KeyName:
         Ref: KeyName
+      BlockDeviceMappings: 
+      - DeviceName: "/dev/xvda"
+        Ebs: 
+          VolumeSize: !If [CreateLargeRootDisk, 20, 10]
       NetworkInterfaces: 
       - AssociatePublicIpAddress: "true"
         DeviceIndex: "0"

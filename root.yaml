@@ -1,5 +1,10 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: root stack
+Parameters:
+  ENV:
+    AllowedValues: [dev, prod]
+    Default: dev
+    Type: String
 Resources:
   vpc:
     Type: AWS::CloudFormation::Stack
@@ -18,3 +23,4 @@ Resources:
       Parameters:
         SUBNETID: !GetAtt vpc.Outputs.subnetId
         SGID: !GetAtt sg.Outputs.sgId
+        ENV: !Ref ENV
