@@ -15,22 +15,22 @@ Resources:
   sg:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://s3.us-east-2.amazonaws.com/cf1554356/37f22dd3ebc80e1a3104d3797bc29e41.template
+      TemplateURL: https://s3.us-east-2.amazonaws.com/cf1554356/ac3c3ce28c044a8adbd3f1610c39b668.template
       Parameters:
-        VPCID:
+        VpcId:
           Fn::GetAtt:
           - vpc
           - Outputs.vpcId
   instance:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://s3.us-east-2.amazonaws.com/cf1554356/e8512e650f521fcbf784b91e47ed0e2e.template
+      TemplateURL: https://s3.us-east-2.amazonaws.com/cf1554356/346a982619de81ddcd8dee96c14c30f3.template
       Parameters:
-        SUBNETID:
+        SubnetId:
           Fn::GetAtt:
           - vpc
           - Outputs.subnetId
-        SGID:
+        SecurityGroupId:
           Fn::GetAtt:
           - sg
           - Outputs.sgId

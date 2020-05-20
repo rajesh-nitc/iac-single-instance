@@ -15,12 +15,12 @@ Resources:
     Properties:
       TemplateURL: sg.yaml
       Parameters:
-        VPCID: !GetAtt vpc.Outputs.vpcId
+        VpcId: !GetAtt vpc.Outputs.vpcId
   instance:
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: instance.yaml
       Parameters:
-        SUBNETID: !GetAtt vpc.Outputs.subnetId
-        SGID: !GetAtt sg.Outputs.sgId
+        SubnetId: !GetAtt vpc.Outputs.subnetId
+        SecurityGroupId: !GetAtt sg.Outputs.sgId
         ENV: !Ref ENV

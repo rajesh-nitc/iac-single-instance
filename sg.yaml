@@ -9,14 +9,14 @@ Parameters:
     MaxLength: '18'
     MinLength: '9'
     Type: String 
-  VPCID:
+  VpcId:
     Type: String
 Resources: 
   WebServerSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: "Enable HTTP access via port 80 locked down to the load balancer + SSH access"
-      VpcId: !Sub '${VPCID}'
+      VpcId: !Sub '${VpcId}'
       SecurityGroupIngress:
       - CidrIp: 0.0.0.0/0
         FromPort: 80

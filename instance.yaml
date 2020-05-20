@@ -12,12 +12,15 @@ Parameters:
     ConstraintDescription: must be the name of an existing EC2 KeyPair.
     Type: AWS::EC2::KeyPair::KeyName
     Default: keypair-first
-  SUBNETID:
+  SubnetId:
     Type: String
-  SGID:
+  SecurityGroupId:
     Type: String
   ENV:
     Type: String
+  FromParamterStore:
+    Type : AWS::SSM::Parameter::Value<String>
+    Default: mySecret
 Mappings:
   AWSInstanceType2Arch:
     t2.micro:
@@ -47,15 +50,15 @@ Resources:
       - AssociatePublicIpAddress: "true"
         DeviceIndex: "0"
         GroupSet: 
-          - !Sub '${SGID}'
-        SubnetId: !Sub '${SUBNETID}'
+          - !Sub '${SecurityGroupId}'
+        SubnetId: !Sub '${SubnetId}'
       UserData:
         Fn::Base64: !Sub |
            #!/bin/bash -xe
            yum update -y
            yum install -y httpd
            cat <<EOF > /var/www/html/index.html
-           <!doctype html><html><body><h1>hello world!</h1></body></html>
+           <!doctype html><html><body><h1>${FromParamterStore}</h1></body></html>
            EOF
            apachectl start
 Outputs:
