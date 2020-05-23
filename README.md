@@ -1,5 +1,12 @@
 ## iac-single-instance
 
+### validate templates
+```
+aws cloudformation validate-template --template-body file://root.yaml
+aws cloudformation validate-template --template-body file://instance.yaml
+aws cloudformation validate-template --template-body file://vpc.yaml
+aws cloudformation validate-template --template-body file://sg.yaml
+```
 ### create ssm parameter
 ```
 aws ssm put-parameter --name mySecret --type String --value "hello world!"
