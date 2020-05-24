@@ -1,7 +1,7 @@
 # Iac
 Deploy single instance via CloudFormation
 ## Getting Started
-### Validate Templates
+### Validate
 ```
 aws cloudformation validate-template --template-body file://root.yaml
 aws cloudformation validate-template --template-body file://instance.yaml
